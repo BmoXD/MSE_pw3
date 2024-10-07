@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
 
+        val inputTextField = findViewById<TextInputEditText>(R.id.txt_input)
+        val saveTextButton = findViewById<Button>(R.id.btn_saveText)
+
         val goTo2ndActivity = findViewById<Button>(R.id.btn_goTo2nd)
         goTo2ndActivity.setOnClickListener{
             startActivity(Intent(this, ReadTextActivity::class.java))
@@ -84,9 +87,9 @@ class MainActivity : AppCompatActivity() {
         spinner.setSelection(initialPosition)
 
         // Save the input value to DataStore
-        findViewById<Button>(R.id.btn_saveText).setOnClickListener {
+        saveTextButton.setOnClickListener {
             lifecycleScope.launch {
-                val inputText = findViewById<TextInputEditText>(R.id.txt_input).text.toString()
+                val inputText = inputTextField.text.toString()
                 DataStoreManager.dataStore.edit { preferences ->
                     preferences[stringPreferencesKey("input_text")] = inputText
                 }
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             DataStoreManager.dataStore.data.collect { preferences ->
                 val savedText = preferences[stringPreferencesKey("input_text")] ?: ""
-                findViewById<TextInputEditText>(R.id.txt_input).setText(savedText)
+                inputTextField.setText(savedText)
             }
         }
     }
