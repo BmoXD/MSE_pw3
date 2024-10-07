@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Repository G-4</string>
+    <string-array name="theme_options">
+        <item>Light theme</item>
+        <item>Dark theme</item>
+    </string-array>
+</resources>
