@@ -61,30 +61,26 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                when (position) {
-                    0 -> {
-                        // Set light theme
+                when (position)
+                {
+                    0 -> { // Default theme (System default)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    }
+                    1 -> { // Light theme
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     }
-
-                    1 -> {
-                        // Set dark theme
+                    2 -> { // Dark theme
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     }
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+            override fun onNothingSelected(parent: AdapterView<*>?)
+            {
                 // Do nothing
             }
         }
 
-        val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
-        val initialPosition = when (defaultNightMode) {
-            AppCompatDelegate.MODE_NIGHT_YES -> 1 // Dark theme
-            else -> 0 // Light theme
-        }
-        spinner.setSelection(initialPosition)
+        spinner.setSelection(0)
 
         // Save the input value to DataStore
         saveTextButton.setOnClickListener {
